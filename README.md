@@ -6,4 +6,4 @@ base and will evolve as I experiment. I want to add support for
 swagger to generate the swagger.json automatically.
 
 For reference:
-(Building a RESTful Web Service)[http://spring.io/guides/gs/rest-service/]
+[Building a RESTful Web Service](http://spring.io/guides/gs/rest-service/)
