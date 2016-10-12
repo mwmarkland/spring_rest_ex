@@ -1,2 +1,2 @@
 # spring_rest_ex
-Experimentation with Spring, Java, REST
+Experimentation with Spring, Java, REST, swagger.
