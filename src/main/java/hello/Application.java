@@ -4,7 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import com.google.common.base.Predicate;
 
@@ -37,6 +39,20 @@ public class Application {
     SpringApplication.run(Application.class, args);
   }
 
+  // This is from the CORS configuration example on spring site.
+  @Bean
+  public WebMvcConfigurer corsConfigurer() {
+    return new WebMvcConfigurerAdapter() {
+      @Override
+      public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/greeting-javaconfig").allowedOrigins("http://localhost:8080");
+        registry.addMapping("/v2/api-docs").allowedOrigins("*");
+      }
+    };
+  }
+
+  // This appears to generate output on the /swagger-resources
+  // endpoint by default.
   @Bean
   public Docket greetingApi() {
     return new Docket(DocumentationType.SWAGGER_2)
@@ -46,6 +62,10 @@ public class Application {
       .paths(regex("/greeting.*"))
       .build();
   }
+  
+  // This seems to get setup and served as part of
+  // the v2/api-docs?group=Greeting%20API
+  // Which has the swagger.json for stuff.
   
   private ApiInfo apiInfo() {
     return new ApiInfoBuilder()
